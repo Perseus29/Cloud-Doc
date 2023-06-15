@@ -44,12 +44,12 @@ const Editor = () => {
 
     return (
         <Box style={{'display':'flex' , 'justifyContent':'space-evenly','backgroundColor':'#f5f5f5'}}>
-            <h1 style={{'marginTop':'0' }} >Name</h1>
+            <h2 style={{'marginTop':'10px' }} >Name</h2>
             <Component>
                 <Box id='container' className='container'>
                 </Box>
             </Component>
-            <h1 style={{'marginTop':'0'}}>Profile</h1>
+            <h2 style={{'marginTop':'10px'}}>CloudDoc</h2>
         </Box>
     );
 }
