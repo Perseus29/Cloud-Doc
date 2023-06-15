@@ -28,24 +28,24 @@ const Home = () => {
             name: newDocName,
             text: "",
         })
-        .then((result) => {
-            const newId = result.id;
-            const q = query(UsersCol, where("email", "==", user.email));
-            getDocs(q)
-            .then((snapshot) => {
-                let uid = snapshot.docs[0].id;
-                const userRef = doc(db, "users", uid);
-                updateDoc(userRef, {
-                    docs: arrayUnion({
-                    id: newId,
-                    name: newDocName
-                    })
-                })
-                .then(() => {
-                    setRun(!run);
-                })
-            });
-        })
+            .then((result) => {
+                const newId = result.id;
+                const q = query(UsersCol, where("email", "==", user.email));
+                getDocs(q)
+                    .then((snapshot) => {
+                        let uid = snapshot.docs[0].id;
+                        const userRef = doc(db, "users", uid);
+                        updateDoc(userRef, {
+                            docs: arrayUnion({
+                                id: newId,
+                                name: newDocName
+                            })
+                        })
+                            .then(() => {
+                                setRun(!run);
+                            })
+                    });
+            })
     }
 
 
@@ -80,15 +80,16 @@ const Home = () => {
 
             <div className="orgss" style={{ display: "flex", overflowX: "auto" }}>
                 {documents && documents.map((object) => (
-                    <div className="org-details" key={object.id} style={{ backgroundColor: '#e1e6e1' }}>
-                        <Link to={'/'} style={{ fontStyle: "none", marginLeft: "3%", textDecoration: "none" }} >
+                    <Link to={`/docs/${object.id}`} style={{ fontStyle: "none", marginLeft: "3%", textDecoration: "none" }} key={object.id}>
+                        <div className="org-details"  style={{ backgroundColor: '#e1e6e1' }}>
                             <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
                                 <h4>{object.name}</h4>
                             </div>
-                        </Link>
-                    </div>
+                        </div>
+                    </Link>
+
                 ))}
-            </div>
+            </div >
             <button onClick={handleSignOut}>
                 Logout
             </button>

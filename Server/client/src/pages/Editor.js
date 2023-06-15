@@ -3,7 +3,7 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { db } from '../firebase';
 import { auth } from '../firebase';
@@ -43,6 +43,7 @@ const Editor = () => {
     const [quill, setQuill] = useState();
     const [valid, setValid] = useState(false);
     const [load, setLoad] = useState(true);
+    const [docName,setDocName] = useState();
 
 
     const { id } = useParams();
@@ -54,6 +55,7 @@ const Editor = () => {
             .then((docSnap) => {
                 if (docSnap.exists()) {
                     setValid(true);
+                    setDocName(docSnap.data().name)
                     if (auth.currentUser) {
                         const q = query(UsersCol, where("email", "==", auth.currentUser.email));
                         getDocs(q)
@@ -66,9 +68,6 @@ const Editor = () => {
                                         name: docSnap.data().name
                                     })
                                 })
-                                    .then(() => {
-                                        // console.log('success');
-                                    })
                             });
                     }
                 } else {
@@ -163,12 +162,12 @@ const Editor = () => {
         <>
             {valid ?
                 <Box style={{ 'display': 'flex', 'justifyContent': 'space-evenly', 'backgroundColor': '#f5f5f5' }}>
-                    <h2 style={{ 'marginTop': '0.5%', 'width': '5%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }} >{auth.currentUser && auth.currentUser.displayName}</h2>
+                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }} >{docName}</h2>
                     <Component>
                         <Box id='container' className='container'>
                         </Box>
                     </Component>
-                    <h2 style={{ 'marginTop': '0.5%', 'width': '5%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }}>CloudDoc</h2>
+                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }}><Link to={'/'} style={{textDecoration:'none'}}>CloudDoc</Link></h2>
                 </Box>
                 :
                 load ? <h1> Loading</h1> :
