@@ -23,17 +23,11 @@ const Login = () => {
                         snapshot.docs.forEach((doc) => {
                             el.push({ ...doc.data(), id: doc.id });
                         })
-                        if (el.length == 0) {
+                        if (el.length === 0) {
                             addDoc(UsersCol,{
                                 email:result.user.email,
                                 docs:[],
                             })
-                            .then(()=>{
-                                console.log('Added');                                
-                            })
-                        }
-                        else {
-                            console.log("Found");
                         }
                     });
                 if (pre) {
