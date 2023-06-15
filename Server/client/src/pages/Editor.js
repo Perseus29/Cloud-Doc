@@ -162,7 +162,7 @@ const Editor = () => {
         <>
             {valid ?
                 <Box style={{ 'display': 'flex', 'justifyContent': 'space-evenly', 'backgroundColor': '#f5f5f5' }}>
-                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }} >{docName}</h2>
+                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center',overflow: 'hidden' }} >{docName}</h2>
                     <Component>
                         <Box id='container' className='container'>
                         </Box>

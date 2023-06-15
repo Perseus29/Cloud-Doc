@@ -5,6 +5,7 @@ import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import { auth } from '../firebase';
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
 
@@ -46,10 +47,13 @@ const Login = () => {
 
 
     return (
-        <>
-            <h1>Login</h1>
-            <GoogleButton onClick={handleGoogleSignIn} />
-        </>
+        <div className='Login'>
+            <div style={{width:'40%' , fontSize:'2.6em' , fontWeight:'600'}}>Unlock the power of words and ideas. Login to embark on a seamless journey of editing and collaboration.</div>
+            <div className='outer' onClick={handleGoogleSignIn}>
+                <div className='icon' ><FcGoogle style={{padding:'0',margin:'0' , fontSize:'2.75em'}}/></div>
+                <div className='inner'>Sign in with Google</div>
+            </div>
+        </div>
     );
 }
 
