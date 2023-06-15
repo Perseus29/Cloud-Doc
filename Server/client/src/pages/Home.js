@@ -1,5 +1,5 @@
 import { UserAuth } from '../context/AuthContext';
-import { addDoc, collection, getDocs, query, where, doc ,updateDoc  ,arrayUnion} from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,10 +8,10 @@ const Home = () => {
 
     const [newDocName, setNewDocName] = useState("");
 
-    const [run,setRun] = useState(false);
+    const [run, setRun] = useState(false);
 
     const { logOut, user } = UserAuth();
-    
+
     const handleSignOut = async () => {
         try {
             await logOut();
@@ -28,24 +28,24 @@ const Home = () => {
             name: newDocName,
             text: "",
         })
-            .then((result) => {
-                const newId = result.id;
-                const q = query(UsersCol, where("email", "==", user.email));
-                getDocs(q)
-                    .then((snapshot) => {
-                        let uid = snapshot.docs[0].id;
-                        const userRef = doc(db, "users", uid);
-                        updateDoc(userRef, {
-                            docs: arrayUnion({
-                                id:newId,
-                                name:newDocName
-                            })
-                        })
-                        .then(()=>{
-                            setRun(!run);                           
-                        })
-                    });
-            })
+        .then((result) => {
+            const newId = result.id;
+            const q = query(UsersCol, where("email", "==", user.email));
+            getDocs(q)
+            .then((snapshot) => {
+                let uid = snapshot.docs[0].id;
+                const userRef = doc(db, "users", uid);
+                updateDoc(userRef, {
+                    docs: arrayUnion({
+                    id: newId,
+                    name: newDocName
+                    })
+                })
+                .then(() => {
+                    setRun(!run);
+                })
+            });
+        })
     }
 
 
@@ -66,7 +66,7 @@ const Home = () => {
                     setDocuments(el[0].docs);
                 }
             });
-    }, [run,user]);
+    }, [run, user]);
 
     return (
         <>

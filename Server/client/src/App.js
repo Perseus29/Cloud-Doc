@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Protected> <Home /> </Protected>} />
           <Route path='/login' element={<Login />} />
-          <Route path='/docs' element={<Protected> <Editor /> </Protected>} />
+          <Route path='/docs/:id' element={<Protected> <Editor /> </Protected>} />
         </Routes>
       </AuthContextProvider>
     </div>
