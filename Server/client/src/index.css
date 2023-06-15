@@ -1,42 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 * {
   font-family: "Quicksand";
   color: #333;
 }
 
 .org-details {
-    background: #fff;
-    border-radius: 4px;
-    margin: 10px ;
-    padding: 20px;
-    position: relative;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.10);
-    cursor: pointer;
-    min-width: 300px;
-  }
-  .orgss::-webkit-scrollbar {
-    display: none;
-  }
-  .org-details:hover{
-    transform: scale(1.01);
-  }
-  .org-details h4 {
-    margin: 0 0 10px 0;
-    font-size: 1.2em;
-    color: black;
-  }
-  .org-details p {
-    margin: 0;
-    font-size: 0.9em;
-    color: #555;
-  }
-  .org-details span {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-    /* background: #f1f1f1; */
-    padding: 6px;
-    border-radius: 50%;
-    color: #333;
-  }
+  background: #fff;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+  min-width: 300px;
+}
+
+.orgss::-webkit-scrollbar {
+  display: none;
+}
+
+.org-details:hover {
+  transform: scale(1.01);
+}
+
+.org-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: black;
+}
+
+.org-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.org-details span {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  /* background: #f1f1f1; */
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+
+.container {
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 0 5px 0 rgb(0, 0, 0, 0.5);
+  margin: 20px auto 10px auto !important;
+  min-height: 100vh;
+  /* background-color: gray !important;  */
+}
+
+.ql-toolbar.ql-snow{
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f3f3f3;
+  border: none !important;
+}
