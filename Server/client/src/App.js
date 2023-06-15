@@ -7,7 +7,7 @@ import Protected from './Protected';
 
 function App() {
   return (
-    <>
+    <div>
       <AuthContextProvider>
         <Routes>
           <Route path='/' element={<Protected> <Home /> </Protected>} />
@@ -15,7 +15,7 @@ function App() {
           <Route path='/docs' element={<Protected> <Editor /> </Protected>} />
         </Routes>
       </AuthContextProvider>
-    </>
+    </div>
   );
 }
 

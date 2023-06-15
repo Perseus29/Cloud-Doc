@@ -3,7 +3,6 @@ import { UserAuth } from '../context/AuthContext';
 const Home = () => {
 
     const { logOut, user } = UserAuth();
-
     const handleSignOut = async () => {
         try {
             await logOut();
