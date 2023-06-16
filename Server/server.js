@@ -2,6 +2,8 @@ import { Server } from "socket.io";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from './firebase.js';
 
+
+
 const PORT = 3002;
 
 const io = new Server(PORT, {
