@@ -3,7 +3,7 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { db } from '../firebase';
 import { auth } from '../firebase';
@@ -43,7 +43,7 @@ const Editor = () => {
     const [quill, setQuill] = useState();
     const [valid, setValid] = useState(false);
     const [load, setLoad] = useState(true);
-    const [docName,setDocName] = useState();
+    const [docName, setDocName] = useState();
 
 
     const { id } = useParams();
@@ -132,29 +132,29 @@ const Editor = () => {
         }
     }, [quill, socket]);
 
-    useEffect(()=>{
-        if( quill === null || socket === null ) return;
+    useEffect(() => {
+        if (quill === null || socket === null) return;
 
-        socket && socket.once('load-document' , document => {
+        socket && socket.once('load-document', document => {
             quill && quill.setContents(document);
-            quill &&  quill.enable();
+            quill && quill.enable();
         });
 
-        socket && socket.emit('get-document',id);
-    },[quill,socket,id])
+        socket && socket.emit('get-document', id);
+    }, [quill, socket, id])
 
-    useEffect(()=>{
-        if(socket === null || quill === null) return ;
+    useEffect(() => {
+        if (socket === null || quill === null) return;
 
         const interval = setInterval(() => {
-            socket && socket.emit('save-document' , quill.getContents())
-        },2000);
+            socket && socket.emit('save-document', quill.getContents())
+        }, 2000);
 
         return () => {
             clearInterval(interval);
         }
 
-    },[socket,quill]);
+    }, [socket, quill]);
 
 
 
@@ -162,16 +162,16 @@ const Editor = () => {
         <>
             {valid ?
                 <Box style={{ 'display': 'flex', 'justifyContent': 'space-evenly', 'backgroundColor': '#f5f5f5' }}>
-                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center',whiteSpace: 'nowrap',overflow:'hidden',textOverflow: 'ellipsis' }} >{docName}</h2>
+                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} >{docName}</h2>
                     <Component>
                         <Box id='container' className='container'>
                         </Box>
                     </Component>
-                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }}><Link to={'/'} style={{textDecoration:'none'}}>CloudDoc</Link></h2>
+                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }}><Link to={'/'} style={{ textDecoration: 'none' }}>CloudDoc</Link></h2>
                 </Box>
                 :
-                load ? <h1> Loading</h1> :
-                    <h1>Wrong Url</h1>
+                load ? <h1 style={{ width: '100%' , display:'flex' , justifyContent:'center' , minHeight:'90vh' , alignItems:'center' , fontSize:'3em' }}>Loading...</h1> :
+                <Navigate to={'/404'} />
             }
         </>
     );
