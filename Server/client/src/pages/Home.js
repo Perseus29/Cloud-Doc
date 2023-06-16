@@ -1,11 +1,10 @@
 import { UserAuth } from '../context/AuthContext';
-import { addDoc, collection, getDocs, query, where, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where, doc, updateDoc, arrayUnion, deleteDoc ,arrayRemove } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TiDocumentAdd } from 'react-icons/ti'
 import { AiFillDelete } from 'react-icons/ai'
-import { doc, deleteDoc } from "firebase/firestore";
 
 const Home = () => {
 
@@ -78,37 +77,55 @@ const Home = () => {
             });
     }, [run, user]);
 
-    const handleDelete = async (docId) =>{
-        await deleteDoc(doc(db, "docs", docId));              
+    const handleDelete = async (docId,docName) => {
+
+        const q = query(collection(db, "users"), where("email", "==", `${user.email}`));
+
+        const querySnapshot = await getDocs(q);
+        let uid = querySnapshot.docs[0].id;       
+
+        const userRef = doc(db, "users", uid);
+
+        await updateDoc(userRef, {
+            docs: arrayRemove({
+                id: docId,
+                name: docName
+            })
+        });
+
+        await deleteDoc(doc(db, "docs", docId));
+
+        setRun(!run);
+
     }
 
     return (
         <div style={{ marginLeft: '2%', marginRight: '2%', marginTop: '2%' }}>
             <div className='home'>
                 <h1>CloudDoc</h1>
-                <button type="button" class="btn btn-secondary text-center" onClick={handleSignOut}>Logout</button>
+                <button type="button" className="btn btn-secondary text-center" onClick={handleSignOut}>Logout</button>
             </div>
             <h2 style={{ marginTop: '3%', fontWeight: '600', marginBottom: '3%' }} >
                 Welcome! {user.displayName}
             </h2>
-            <div class="modal fade" id="Create-Doc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" >
-                    <div class="modal-content style={{backgroundColor:'gray'}}">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel" style={{fontWeight:'700'}}>Create New Document</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="Create-Doc" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" >
+                    <div className="modal-content style={{backgroundColor:'gray'}}">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel" style={{ fontWeight: '700' }}>Create New Document</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <div class="modal-body">
-                                <div class="mb-3 row">
-                                    <label for="inputDescription" class="col-sm-12 col-form-label" style={{fontWeight:'700'}}>Name of Document:</label>
-                                    <div class="col">
-                                        <input type="text" class="form-control" id="inputdescription" value={newDocName} onChange={(e) => { setNewDocName(e.target.value) }} />
+                        <div className="modal-body">
+                            <div className="modal-body">
+                                <div className="mb-3 row">
+                                    <label htmlFor="inputDescription" className="col-sm-12 col-form-label" style={{ fontWeight: '700' }}>Name of Document:</label>
+                                    <div className="col">
+                                        <input type="text" className="form-control" id="inputdescription" value={newDocName} onChange={(e) => { setNewDocName(e.target.value) }} />
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={addDocument} >Add Document</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={addDocument} >Add Document</button>
                             </div>
                         </div>
                     </div>
@@ -116,10 +133,10 @@ const Home = () => {
             </div>
             <div className='row row-cols-md-3 rows-cols-sm-1 row-cols-lg-4 g-4'>
                 <div className='col' style={{ cursor: 'pointer' }} data-bs-toggle="modal" data-bs-target="#Create-Doc">
-                    <div className='card h-100 text-center'>
+                    <div className='card h-100 text-center' style={{  boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' }}>
                         <div className='card-body'>
-                            <h5 className='card-title ' style={{display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold' }}>
-                                <TiDocumentAdd style={{ marginTop: '2.5%'}} /> 
+                            <h5 className='card-title ' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold' }}>
+                                <TiDocumentAdd style={{ marginTop: '2.5%' }} />
                                 <div style={{ marginTop: '3.5%', marginLeft: '1%' }}>Create New Document</div>
                             </h5>
                         </div>
@@ -127,11 +144,11 @@ const Home = () => {
                 </div>
                 {documents && documents.map((object) => (
                     <div className='col' key={object.id}>
-                        <div className='card h-100 text-center'>
+                        <div className='card h-100 text-center' style={{  boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' }}>
                             <div className='card-body'>
-                                <div className='card-title' style={{ display:'flex' , justifyContent:'center' , alignItems:'center' }}>
-                                    <Link to={`/docs/${object.id}`} style={{ width: '80%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' , marginTop:'2%' ,fontStyle: "none", textDecoration: "none" ,fontSize:'1.5em' ,color:'#333' }} >{object.name}</Link>
-                                    <div style={{display:'flex' , alignItems:'center' ,cursor:'pointer' , marginTop:'2.5%'}}><AiFillDelete onClick={()=>{handleDelete(object.id)}}/></div> 
+                                <div className='card-title' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Link to={`/docs/${object.id}`} style={{ width: '80%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '2%', fontStyle: "none", textDecoration: "none", fontSize: '1.5em', color: '#333' }} >{object.name}</Link>
+                                    <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', marginTop: '2.5%' }}><AiFillDelete onClick={() => { handleDelete(object.id,object.name) }} /></div>
                                 </div>
                             </div>
                         </div>
