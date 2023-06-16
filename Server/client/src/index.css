@@ -53,6 +53,20 @@
   margin-left:-5%;
 }
 
+
+.home{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home h2,h1{
+  font-weight: 600;
+}
+
+
+
+
 .cls-1 {
   fill: #ffc541;
 }
