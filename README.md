@@ -4,6 +4,8 @@ Cloud-Doc is a real-time collaborative document editing application that enables
 # Here is the link to video demonstartion
 - [Video](https://drive.google.com/file/d/1xepCZady0kbbtyBRMrpeH31dW3JL2XNq/view?usp=sharing)
 
+Here is the link to website
+- [Cloud-Doc website](https://cloud-doc.netlify.app/)
 
 ## Technologies Used
 
