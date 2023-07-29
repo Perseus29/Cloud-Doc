@@ -86,14 +86,14 @@ const Home = () => {
 
         const userRef = doc(db, "users", uid);
 
-        await updateDoc(userRef, {
+        updateDoc(userRef, {
             docs: arrayRemove({
                 id: docId,
                 name: docName
             })
-        });
+        })
 
-        await deleteDoc(doc(db, "docs", docId));
+        deleteDoc(doc(db, "docs", docId));
 
         setRun(!run);
 

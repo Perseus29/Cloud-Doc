@@ -71,6 +71,7 @@ const Editor = () => {
                             });
                     }
                 } else {
+                    console.log(id);                    
                     setLoad(false);
                 }
             });
@@ -162,12 +163,12 @@ const Editor = () => {
         <>
             {valid ?
                 <Box style={{ 'display': 'flex', 'justifyContent': 'space-evenly', 'backgroundColor': '#f5f5f5' }}>
-                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} >{docName}</h2>
+                    <div style={{ 'marginTop': '1%', 'width': '15%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center'}} ><h3 style={{marginLeft:'1%' , width:'95%' , whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{docName}</h3></div>
                     <Component>
                         <Box id='container' className='container'>
                         </Box>
                     </Component>
-                    <h2 style={{ 'marginTop': '0.5%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }}><Link to={'/'} style={{ textDecoration: 'none' }}>CloudDoc</Link></h2>
+                    <h3 style={{ 'marginTop': '1%', 'width': '10%', 'marginLeft': '0', 'marginRight': '0', display: 'flex', justifyContent: 'center' }}><Link to={'/'} style={{ textDecoration: 'none' ,color:'#333' }}>CloudDoc</Link></h3>
                 </Box>
                 :
                 load ? <h1 style={{ width: '100%' , display:'flex' , justifyContent:'center' , minHeight:'90vh' , alignItems:'center' , fontSize:'3em' }}>Loading...</h1> :
