@@ -1,9 +1,8 @@
 # Cloud-Doc
-Cloud-Doc is a web application built using Node.js , Express.js and MongoDB that allows users to easily upload files and generate links to download them from anywhere. Additionally, it provides the functionality to send the generated download links via email to anyone.
+Cloud-Doc is a real-time collaborative document editing application that enables users to create, edit, and share documents seamlessly. With CloudText, multiple users can collaborate on the same document simultaneously, making it a powerful tool for team collaboration, note-taking, and brainstorming sessions.
 
-# Video Demonstration of Working
-
-https://github.com/Perseus29/CloudShare/assets/94976184/5893f059-21ed-49f9-92c3-573167d9b93b
+# Here is the link to video demonstartion
+- [Video](https://drive.google.com/file/d/1xepCZady0kbbtyBRMrpeH31dW3JL2XNq/view?usp=sharing)
 
 
 ## Technologies Used
